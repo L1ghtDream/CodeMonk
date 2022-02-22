@@ -16,21 +16,29 @@ int main() {
 }
 
 void execute() {
-    int n, k;
-    int v[1000000];
-    cin >> n >> k;
+    int n;
+    int m[30][30];
+    cin >> n;
 
     for (int i = 0; i < n; i++) {
-        cin >> v[i];
+        for (int j = 0; j < n; j++) {
+            cin >> m[i][j];
+        }
     }
 
-    int index = n - (k % n);
+    int count = 0;
 
-    for (int i = index; i < n; i++) {
-        cout << v[i] << " ";
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+            for (int ii = i; ii < n; ii++) {
+                for (int jj = j; jj < n; jj++) {
+                    if (m[i][j] > m[ii][jj]) {
+                        count++;
+                    }
+                }
+            }
+        }
     }
-    for (int i = 0; i < index; i++) {
-        cout << v[i] << " ";
-    }
-    cout << endl;
+
+    cout << count << endl;
 }
