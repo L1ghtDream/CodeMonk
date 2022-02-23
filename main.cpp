@@ -16,29 +16,33 @@ int main() {
 }
 
 void execute() {
-    int n;
-    int m[30][30];
-    cin >> n;
+    long long int n, k;
+    string maxx = "0";
+    long long int index = 0;
+    long long int period = -1;
+
+    cin >> n >> k;
+
+    string bin;
+    cin >> bin;
 
     for (int i = 0; i < n; i++) {
-        for (int j = 0; j < n; j++) {
-            cin >> m[i][j];
+        if (maxx < bin) {
+            maxx = bin;
+            index = i;
+        }
+        bin = bin.substr(1) + bin[0];
+    }
+
+    string tmpBin = maxx;
+
+    for (int i = 0; i < n; i++) {
+        tmpBin = tmpBin.substr(1) + tmpBin[0];
+        if (tmpBin == maxx) {
+            period = i + 1;
+            break;
         }
     }
 
-    int count = 0;
-
-    for (int i = 0; i < n; i++) {
-        for (int j = 0; j < n; j++) {
-            for (int ii = i; ii < n; ii++) {
-                for (int jj = j; jj < n; jj++) {
-                    if (m[i][j] > m[ii][jj]) {
-                        count++;
-                    }
-                }
-            }
-        }
-    }
-
-    cout << count << endl;
+    cout << index + period * (k - 1) << endl;
 }
