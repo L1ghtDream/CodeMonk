@@ -1,4 +1,6 @@
 #include <iostream>
+#include <vector>
+#include <algorithm>
 
 using namespace std;
 
@@ -16,33 +18,24 @@ int main() {
 }
 
 void execute() {
-    long long int n, k;
-    string maxx = "0";
-    long long int index = 0;
-    long long int period = -1;
-
-    cin >> n >> k;
-
-    string bin;
-    cin >> bin;
-
+    int n;
+    vector<int> v;
+    cin >> n;
     for (int i = 0; i < n; i++) {
-        if (maxx < bin) {
-            maxx = bin;
-            index = i;
-        }
-        bin = bin.substr(1) + bin[0];
+        int tmp;
+        cin >> tmp;
+        v.push_back(tmp);
     }
 
-    string tmpBin = maxx;
+    sort(v.begin(), v.end());
 
-    for (int i = 0; i < n; i++) {
-        tmpBin = tmpBin.substr(1) + tmpBin[0];
-        if (tmpBin == maxx) {
-            period = i + 1;
-            break;
+    int minn = 100000000;
+    for (int i = 0; i < n - 1; i++) {
+        int tmp = v[i] ^ v[i + 1];
+        if (minn > tmp) {
+            minn = tmp;
         }
     }
 
-    cout << index + period * (k - 1) << endl;
+    cout << minn << endl;
 }
